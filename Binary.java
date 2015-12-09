@@ -1,0 +1,222 @@
+/* Andy Liang, Aleksandar Shipetich == Team 
+   APCS1 pd5
+   HW 43 -- This or That
+   2015-12-07 */
+
+public class Binary {
+  
+    private final static String HEXDIGITS = "0123456789ABCDEF"; 
+    private int _decNum;
+    private String _binNum;
+    private String 
+
+
+    /*=====================================
+      default constructor
+      pre:  n/a
+      post: initializes _decNum to 0, _binNum to "0"
+      =====================================*/
+    public Binary() { 
+        _decNum = 0;
+	      _binNum = "0";
+    }
+
+
+    /*=====================================
+      overloaded constructor
+      pre:  n >= 0
+      post: sets _decNum to n, _binNum to equiv string of bits
+      =====================================*/
+    public Binary( int n ) {
+        _decNum = n;
+	      _binNum = decToBin(n);
+    }
+
+
+    /*=====================================
+      overloaded constructor
+      pre:  s is String representing non-negative binary number
+      post: sets _binNum to input, _decNum to decimal equiv
+      =====================================*/
+    public Binary( String s ) {
+        _binNum = s;
+	_decNum = binToDec(s);
+    }
+
+
+    /*=====================================
+      String toString() -- returns String representation of this Object
+      pre:  n/a
+      post: returns String of 1's and 0's representing value of this Object
+      =====================================*/
+    public String toString() { 
+        return Integer.toString(this._decNum);
+    }
+
+
+    /*=====================================
+      String decToBin(int) -- converts base-10 input to binary
+      pre:  n >= 0
+      post: returns String of bits
+      eg  decToBin(0) -> "0"
+      decToBin(1) -> "1"
+      decToBin(2) -> "10"
+      decToBin(3) -> "11"
+      decToBin(14) -> "1110"
+      =====================================*/
+    public static String decToBin( int n ) {
+        int remainder = 0;
+	while (n != 0){
+	    remainder = remainder * 10 + (n % 2);
+	    n = n / 2;
+	}
+	return Integer.toString(remainder);	
+    }
+    
+
+    /*=====================================
+      String decToBinR(int) -- converts base-10 input to binary, recursively
+      pre:  n >= 0
+      post: returns String of bits
+      eg  decToBinR(0) -> "0"
+      decToBinR(1) -> "1"
+      decToBinR(2) -> "10"
+      decToBinR(3) -> "11"
+      decToBinR(14) -> "1110"
+      =====================================*/
+    public static String decToBinR( int n ) { 
+	if(n == 0){
+	    return "0";
+	}
+	else{
+	    return decToBinR(n / 2) + (Integer.toString(n % 2));
+	}
+	
+    }
+
+
+    /*=====================================
+      String binToDec(String) -- converts base-10 input to binary
+      pre:  s represents non-negative binary number
+      post: returns decimal equivalent as int
+      eg  
+      binToDec("0") -> 0
+      binToDec("1") -> 1
+      binToDec("10") -> 2
+      binToDec("11") -> 3
+      binToDec("1110") -> 14
+      =====================================*/
+    public static int binToDec( String s ) {
+	int x = 0;
+	for (int y = 0; y < s.length(); y++){
+	    x = x + (int)Math.pow(Integer.parseInt(s.substring((s.length() - 1) - y, s.length() - y)) ,2);
+	}
+	return x;
+    }
+
+
+    /*=====================================
+      String binToDecR(String) -- converts base-10 input to binary, recursively
+      pre:  s represents non-negative binary number
+      post: returns decimal equivalent as int
+      eg  
+      binToDecR("0") -> 0
+      binToDecR("1") -> 1
+      binToDecR("10") -> 2
+      binToDecR("11") -> 3
+      binToDecR("1110") -> 14
+      =====================================*/
+    public static int binToDecR( String s ) { 
+        if(s.length() == 1){
+	    return (int)Math.pow(Integer.parseInt(s), 2);
+	}
+	else{
+	    return binToDecR(s.substring(0, s.length())) + (int)Math.pow(Integer.parseInt(s.substring(s.length() - 1, s.length())),2);
+	}
+    }
+
+
+    /*=============================================
+      boolean equals(Object) -- tells whether 2 Objs are equivalent
+      pre:  other is an instance of class Binary
+      post: Returns true if this and other are aliases (pointers to same 
+      Object), or if this and other represent equal binary values
+      =============================================*/
+    public boolean equals( Object other ) { 
+        if (((Binary)other)._decNum == this._decNum || other == ((Object)this)){
+	    return true;
+	}
+	else{
+	    return false;
+	}
+    }
+
+
+    /*=============================================
+      int compareTo(Object) -- tells which of two Binary objects is greater
+      pre:  other is instance of class Binary
+      post: Returns 0 if this Object is equal to the input Object,
+      negative integer if this<input, positive integer otherwise
+      =============================================*/
+    public int compareTo( Object other ) {
+        if (((Binary)other)._decNum == this._decNum){
+	    return 0;
+	}
+        if(((Binary)other)._decNum < this._decNum){
+	    return 1;
+	}
+	else{
+	    return -1;
+	}
+    }
+    // ALEKS' PART
+    public static int decToHex(int aleks){
+      return 0; // get past compiler
+      
+      
+    }
+
+
+
+    public static int hexToDec( String s ){
+        
+  
+  
+    //main method for testing
+    public static void main( String[] args ) {
+
+	
+	System.out.println();
+	System.out.println( "Testing ..." );
+
+	Binary b1 = new Binary(5);
+	Binary b2 = new Binary(5);
+	Binary b3 = b1;
+	Binary b4 = new Binary(7);
+
+	System.out.println( b1 );
+	System.out.println( b2 );
+	System.out.println( b3 );       
+	System.out.println( b4 );       
+
+	System.out.println( "\n==..." );
+	System.out.println( b1 == b2 ); //should be false
+	System.out.println( b1 == b3 ); //should be true
+
+	System.out.println( "\n.equals()..." );
+	System.out.println( b1.equals(b2) ); //should be true
+	System.out.println( b1.equals(b3) ); //should be true
+	System.out.println( b3.equals(b1) ); //should be true
+	System.out.println( b4.equals(b2) ); //should be false
+	System.out.println( b1.equals(b4) ); //should be false
+
+	System.out.println( "\n.compareTo..." );
+	System.out.println( b1.compareTo(b2) ); //should be 0
+	System.out.println( b1.compareTo(b3) ); //should be 0
+	System.out.println( b1.compareTo(b4) ); //should be neg
+	System.out.println( b4.compareTo(b1) ); //should be pos
+	/*=========================================
+	  =========================================*/
+    }//end main()
+
+} //end class

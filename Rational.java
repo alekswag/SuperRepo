@@ -137,11 +137,11 @@ public class  Rational implements Comparable{
 
    public int compareTo(Comparable aleks){
 	if (aleks instanceof Binary)
-	    return this.compareTo((Binary)aleks);
+	    return this.compareTo((Rational)aleks);
 	else if (aleks instanceof Rational)
 	    return compareTo((Rational)aleks);
 	else if (aleks instanceof Hexadecimal)
-	    return this.compareTo((Hexadecimal)aleks);
+	    return this.compareTo((Rational)aleks);
 	else
 	    throw new ClassCastException( "Object is not of class Binary or Hex or Rational.");
     }

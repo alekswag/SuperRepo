@@ -84,9 +84,9 @@ public class Hexadecimal implements Comparable {
     
    public int compareTo(Comparable aleks){
 	if (aleks instanceof Binary)
-	    return this.compareTo((Binary)aleks);
+	    return this.compareTo((Hexadecimal)aleks);
 	else if (aleks instanceof Rational)
-	    return this.compareTo((Rational)aleks);
+	    return this.compareTo((Hexadecimal)aleks);
 	else if (aleks instanceof Hexadecimal)
 	    return compareTo((Hexadecimal)aleks);
 	else

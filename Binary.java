@@ -3,12 +3,11 @@
    HW 43 -- This or That
    2015-12-07 */
 
-public class Binary {
+public class Binary implements Comparable {
   
     private final static String HEXDIGITS = "0123456789ABCDEF"; 
     private int _decNum;
     private String _binNum;
-    private String 
 
 
     /*=====================================
@@ -16,9 +15,9 @@ public class Binary {
       pre:  n/a
       post: initializes _decNum to 0, _binNum to "0"
       =====================================*/
-    public Binary() { 
+	public Binary() { 
         _decNum = 0;
-	      _binNum = "0";
+	_binNum = "0";
     }
 
 
@@ -29,7 +28,7 @@ public class Binary {
       =====================================*/
     public Binary( int n ) {
         _decNum = n;
-	      _binNum = decToBin(n);
+	_binNum = decToBin(n);
     }
 
 
@@ -54,6 +53,13 @@ public class Binary {
     }
 
 
+    //Get function for _decNum
+    public int getDecNum(){
+	return _decNum;
+    }
+
+
+    
     /*=====================================
       String decToBin(int) -- converts base-10 input to binary
       pre:  n >= 0
@@ -158,65 +164,76 @@ public class Binary {
       post: Returns 0 if this Object is equal to the input Object,
       negative integer if this<input, positive integer otherwise
       =============================================*/
-    public int compareTo( Object other ) {
-        if (((Binary)other)._decNum == this._decNum){
+
+    public int compareTo(Object aleks){
+	if (aleks instanceof Comparable)
+	    return compareTo((Comparable)aleks);
+	else
+	    throw new ClassCastException( "Object is not of class Comparable.");
+    }
+
+    public int compareTo(Comparable aleks){
+	if (aleks instanceof Binary)
+	    return compareTo((Binary)aleks);
+	else if (aleks instanceof Rational)
+	    return this.compareTo((Rational)aleks);
+	else if (aleks instanceof Hexadecimal)
+	    return this.compareTo((Hexadecimal)aleks);
+	else
+	    throw new ClassCastException( "Object is not of class Binary or Hex or Rational.");
+    }
+
+    
+    public int compareTo(Binary other){
+        if (other.getDecNum() == getDecNum()){
 	    return 0;
 	}
-        if(((Binary)other)._decNum < this._decNum){
+        if((other).getDecNum() < getDecNum()){
 	    return 1;
 	}
 	else{
 	    return -1;
 	}
     }
-    // ALEKS' PART
-    public static int decToHex(int aleks){
-      return 0; // get past compiler
-      
-      
-    }
 
 
 
-    public static int hexToDec( String s ){
-        
   
-  
-    //main method for testing
-    public static void main( String[] args ) {
+	//main method for testing
+	public static void main( String[] args ) {
 
 	
-	System.out.println();
-	System.out.println( "Testing ..." );
+	    System.out.println();
+	    System.out.println( "Testing ..." );
 
-	Binary b1 = new Binary(5);
-	Binary b2 = new Binary(5);
-	Binary b3 = b1;
-	Binary b4 = new Binary(7);
+	    Binary b1 = new Binary(5);
+	    Binary b2 = new Binary(5);
+	    Binary b3 = b1;
+	    Binary b4 = new Binary(7);
 
-	System.out.println( b1 );
-	System.out.println( b2 );
-	System.out.println( b3 );       
-	System.out.println( b4 );       
+	    System.out.println( b1 );
+	    System.out.println( b2 );
+	    System.out.println( b3 );       
+	    System.out.println( b4 );       
 
-	System.out.println( "\n==..." );
-	System.out.println( b1 == b2 ); //should be false
-	System.out.println( b1 == b3 ); //should be true
+	    System.out.println( "\n==..." );
+	    System.out.println( b1 == b2 ); //should be false
+	    System.out.println( b1 == b3 ); //should be true
 
-	System.out.println( "\n.equals()..." );
-	System.out.println( b1.equals(b2) ); //should be true
-	System.out.println( b1.equals(b3) ); //should be true
-	System.out.println( b3.equals(b1) ); //should be true
-	System.out.println( b4.equals(b2) ); //should be false
-	System.out.println( b1.equals(b4) ); //should be false
+	    System.out.println( "\n.equals()..." );
+	    System.out.println( b1.equals(b2) ); //should be true
+	    System.out.println( b1.equals(b3) ); //should be true
+	    System.out.println( b3.equals(b1) ); //should be true
+	    System.out.println( b4.equals(b2) ); //should be false
+	    System.out.println( b1.equals(b4) ); //should be false
 
-	System.out.println( "\n.compareTo..." );
-	System.out.println( b1.compareTo(b2) ); //should be 0
-	System.out.println( b1.compareTo(b3) ); //should be 0
-	System.out.println( b1.compareTo(b4) ); //should be neg
-	System.out.println( b4.compareTo(b1) ); //should be pos
-	/*=========================================
-	  =========================================*/
-    }//end main()
+	    System.out.println( "\n.compareTo..." );
+	    System.out.println( b1.compareTo(b2) ); //should be 0
+	    System.out.println( b1.compareTo(b3) ); //should be 0
+	    System.out.println( b1.compareTo(b4) ); //should be neg
+	    System.out.println( b4.compareTo(b1) ); //should be pos
+	    /*=========================================
+	      =========================================*/
+	}//end main()
 
-} //end class
+    } //end class

@@ -2,12 +2,13 @@
     APCS1 pd5
     HW41 -- In America, the Driver Sits on the Left
     2015-12-4
-    */
+*/
 
 public class  Rational implements Comparable{
 	 
     private double numerator;
     private double denominator;
+    private double _decNum = numerator / denominator;
 
     //Default Constructor
     public Rational(){
@@ -21,6 +22,9 @@ public class  Rational implements Comparable{
 	denominator = newDen;
     }
 
+    public int getDecNum(){
+	return (int)_decNum;
+    }
 
     //toString printing x/y form
     public String toString(){
@@ -124,18 +128,31 @@ public class  Rational implements Comparable{
 	this.numerator /= x;
 	this.denominator /= x;
     }
-	
-	public int compareTo(Object aleks){
-		 	return compareTo((Rational)aleks);
-		}
+	    public int compareTo(Object aleks){
+	if (aleks instanceof Comparable)
+	    return compareTo((Comparable)aleks);
+	else
+	    throw new ClassCastException( "Object is not of class Comparable.");
+    }
+
+   public int compareTo(Comparable aleks){
+	if (aleks instanceof Binary)
+	    return this.compareTo((Binary)aleks);
+	else if (aleks instanceof Rational)
+	    return compareTo((Rational)aleks);
+	else if (aleks instanceof Hexadecimal)
+	    return this.compareTo((Hexadecimal)aleks);
+	else
+	    throw new ClassCastException( "Object is not of class Binary or Hex or Rational.");
+    }
 
     public int compareTo(Rational other){
-    this.reduce();
+	this.reduce();
 	other.reduce();
-	if((this.getNumerator() == other.getNumerator()) && (this.getDenominator() == other.getDenominator())){
+	if((getNumerator() == other.getNumerator()) && (getDenominator() == other.getDenominator())){
 	    return 0;
 	}
-	else if((this.getNumerator() > other.getNumerator()) && (this.getDenominator() == other.getDenominator())){
+	else if((getNumerator() > other.getNumerator()) && (getDenominator() == other.getDenominator())){
 	    return 1;
 	}
 	else {

@@ -3,7 +3,7 @@
    HW 43 -- This or That
    2015-12-07 */
 
-public class Hexadecimal {
+public class Hexadecimal implements Comparable {
   
     private final static String HEXDIGITS = "0123456789ABCDEF"; 
     private int _decNum;
@@ -32,6 +32,11 @@ public class Hexadecimal {
         return Integer.toString(this._decNum);
     }
 
+    
+    //Get function for _decNum
+    public int getDecNum(){
+	return _decNum;
+    }
 
     public static String decToHex( int n ) {
         int remainder = 0;
@@ -70,19 +75,36 @@ public class Hexadecimal {
 	    return false;
 	}
     }
+    public int compareTo(Object aleks){
+	if (aleks instanceof Comparable)
+	    return compareTo((Comparable)aleks);
+	else
+	    throw new ClassCastException( "Object is not of class Comparable.");
+    }
+    
+   public int compareTo(Comparable aleks){
+	if (aleks instanceof Binary)
+	    return this.compareTo((Binary)aleks);
+	else if (aleks instanceof Rational)
+	    return this.compareTo((Rational)aleks);
+	else if (aleks instanceof Hexadecimal)
+	    return compareTo((Hexadecimal)aleks);
+	else
+	    throw new ClassCastException( "Object is not of class Binary or Hex or Rational.");
+    }
 
-    public int compareTo( Object other ) {
-        if (((Hexadecimal)other)._decNum == this._decNum){
+    public int compareTo(Hexadecimal other){
+        if ((other).getDecNum() == getDecNum()){
 	    return 0;
 	}
-        if(((Hexadecimal)other)._decNum < this._decNum){
+        if((other).getDecNum() < getDecNum()){
 	    return 1;
 	}
 	else{
 	    return -1;
 	}
     }
-    
+ 
 
     //Helper Function
     public static int singleHexConversion(String s){ //Can only be of length 1
@@ -103,36 +125,36 @@ public class Hexadecimal {
     public static void main( String[] args ) {
 
 	
-	  System.out.println();
-	  System.out.println( "Testing ..." );
+	System.out.println();
+	System.out.println( "Testing ..." );
 
-	  Hexadecimal b1 = new Hexadecimal(5);
-	  Hexadecimal b2 = new Hexadecimal(5);
-	  Hexadecimal b3 = b1;
-	  Hexadecimal b4 = new Hexadecimal(7);
+	Hexadecimal b1 = new Hexadecimal(5);
+	Hexadecimal b2 = new Hexadecimal(5);
+	Hexadecimal b3 = b1;
+	Hexadecimal b4 = new Hexadecimal(7);
 
-	  System.out.println( b1 );
-	  System.out.println( b2 );
-	  System.out.println( b3 );       
-	  System.out.println( b4 );       
+	System.out.println( b1 );
+	System.out.println( b2 );
+	System.out.println( b3 );       
+	System.out.println( b4 );       
 
-	  System.out.println( "\n==..." );
-	  System.out.println( b1 == b2 ); //should be false
-	  System.out.println( b1 == b3 ); //should be true
+	System.out.println( "\n==..." );
+	System.out.println( b1 == b2 ); //should be false
+	System.out.println( b1 == b3 ); //should be true
 
-	  System.out.println( "\n.equals()..." );
-	  System.out.println( b1.equals(b2) ); //should be true
-	  System.out.println( b1.equals(b3) ); //should be true
-	  System.out.println( b3.equals(b1) ); //should be true
-	  System.out.println( b4.equals(b2) ); //should be false
-	  System.out.println( b1.equals(b4) ); //should be false
+	System.out.println( "\n.equals()..." );
+	System.out.println( b1.equals(b2) ); //should be true
+	System.out.println( b1.equals(b3) ); //should be true
+	System.out.println( b3.equals(b1) ); //should be true
+	System.out.println( b4.equals(b2) ); //should be false
+	System.out.println( b1.equals(b4) ); //should be false
 
-	  System.out.println( "\n.compareTo..." );
-	  System.out.println( b1.compareTo(b2) ); //should be 0
-	  System.out.println( b1.compareTo(b3) ); //should be 0
-	  System.out.println( b1.compareTo(b4) ); //should be neg
-	  System.out.println( b4.compareTo(b1) ); //should be pos
-	  /*=========================================
+	System.out.println( "\n.compareTo..." );
+	System.out.println( b1.compareTo(b2) ); //should be 0
+	System.out.println( b1.compareTo(b3) ); //should be 0
+	System.out.println( b1.compareTo(b4) ); //should be neg
+	System.out.println( b4.compareTo(b1) ); //should be pos
+	/*=========================================
 	  =========================================*/
     }//end main()
 
